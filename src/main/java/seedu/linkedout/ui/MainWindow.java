@@ -41,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private ApplicantListPanel applicantListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ClearAlertBox clearAlertBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -192,6 +193,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {
