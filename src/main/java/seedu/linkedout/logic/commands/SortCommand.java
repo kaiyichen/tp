@@ -1,3 +1,4 @@
+
 package seedu.linkedout.logic.commands;
 
 import static java.util.Objects.requireNonNull;
