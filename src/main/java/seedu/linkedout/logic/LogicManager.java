@@ -59,6 +59,11 @@ public class LogicManager implements Logic {
         return model.getLinkedout();
     }
 
+    @Override
+    public void setLinkedout(ReadOnlyLinkedout linkedout) {
+        model.setLinkedout(linkedout);
+    }
+
 
     @Override
     public ObservableList<Applicant> getDefaultApplicantList() {

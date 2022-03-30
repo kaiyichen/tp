@@ -13,6 +13,7 @@ import seedu.linkedout.model.applicant.util.sort.Field;
 import seedu.linkedout.model.applicant.util.sort.Order;
 import seedu.linkedout.model.applicant.util.sort.SortComparator;
 
+
 /**
  * Parses input arguments and creates a new SortCommand object
  */
@@ -38,6 +39,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         boolean hasOrder = !argMultimap.getValue(PREFIX_ORDER).get().isBlank();
         boolean hasField = !argMultimap.getValue(PREFIX_FIELD).get().isBlank();
         if (hasOrder && hasField) {
+
             Order order = ParserUtil.parseOrder(argMultimap.getValue(PREFIX_ORDER).get().toUpperCase());
             Field field = ParserUtil.parseField(argMultimap.getValue(PREFIX_FIELD).get().toUpperCase());
             return new SortCommand(new SortComparator(field, order));

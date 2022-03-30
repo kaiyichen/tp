@@ -2,8 +2,11 @@ package seedu.linkedout.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -13,9 +16,13 @@ import javafx.stage.Stage;
 import seedu.linkedout.commons.core.GuiSettings;
 import seedu.linkedout.commons.core.LogsCenter;
 import seedu.linkedout.logic.Logic;
+import seedu.linkedout.logic.commands.ClearCommand;
 import seedu.linkedout.logic.commands.CommandResult;
 import seedu.linkedout.logic.commands.exceptions.CommandException;
 import seedu.linkedout.logic.parser.exceptions.ParseException;
+import seedu.linkedout.model.Linkedout;
+import seedu.linkedout.model.Model;
+import seedu.linkedout.model.ModelManager;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -186,11 +193,33 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isClear()) {
+                handleClear();
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void handleClear() {
+        if (showConfirmationAlert("Are you sure you want to clear the list?")) {
+            showInformationAlert(ClearCommand.MESSAGE_SUCCESS);
+            logic.setLinkedout(new Linkedout());
+        }
+    }
+
+    private void showInformationAlert(String response) {
+        final Alert alert = new Alert(Alert.AlertType.INFORMATION, response);
+        alert.showAndWait();
+    }
+
+    private boolean showConfirmationAlert(String content) {
+        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION, content, ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+        return alert.getResult() == ButtonType.YES;
     }
 }
