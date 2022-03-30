@@ -30,11 +30,6 @@ public interface Logic {
      */
     ReadOnlyLinkedout getLinkedout();
 
-    /**
-     * Replaces linkedout app data with the data in {@code linkedout}.
-     */
-    void setLinkedout(ReadOnlyLinkedout linkedout);
-
     /** Returns an unmodifiable view of either the filtered or sorted list of applicants depending on latest command*/
     ObservableList<Applicant> getDefaultApplicantList();
 

@@ -193,33 +193,11 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isClear()) {
-                handleClear();
-            }
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
-    }
-
-    private void handleClear() {
-        if (showConfirmationAlert("Are you sure you want to clear the list?")) {
-            showInformationAlert(ClearCommand.MESSAGE_SUCCESS);
-            logic.setLinkedout(new Linkedout());
-        }
-    }
-
-    private void showInformationAlert(String response) {
-        final Alert alert = new Alert(Alert.AlertType.INFORMATION, response);
-        alert.showAndWait();
-    }
-
-    private boolean showConfirmationAlert(String content) {
-        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION, content, ButtonType.YES, ButtonType.NO);
-        alert.showAndWait();
-        return alert.getResult() == ButtonType.YES;
     }
 }
